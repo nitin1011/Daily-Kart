@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if other %}
+<h1 align="center">You cannot access this page</h1>
+{% else %}
+<table style="margin-bottom: 50px; margin-top:50px;" width="70%" align="center">
+    {% if customer %}
+        <tr>
+            <td><b>Shop Name : </b></td>
+            <td>{{ order.shop_user }}<td>
+        </tr>
+        <tr>
+            <td><b>Shop state : </b></td>
+            <td>{{ shop_account.state }}<td>
+        </tr>
+        <tr>
+            <td><b>Shop city : </b></td>
+            <td>{{ shop_account.city }}<td>
+        </tr>
+        <tr>
+            <td><b>Shop address : </b></td>
+            <td>{{ shop_account.address }}<td>
+        </tr>
+        <tr>
+            <td><b>Shop mobile no. : </b></td>
+            <td>{{ shop_account.mobile }}<td>
+        </tr>
+        <tr>
+            <td><b>Shop email : </b></td>
+            <td>{{ shop_account.email }}<td>
+        </tr>
+        <tr>
+            <td><b>Delivery Boy Name : </b></td>
+            <td>{{ delivery_account.firstname }} {{ delivery_account.lastname }}</td>
+        </tr>
+        <tr>
+            <td><b>Delivery Boy mobile no. : </b></td>
+            <td>{{ delivery_account.mobile }}<td>
+        </tr>
+    {% else %}
+        <tr>
+            <td><b>Customer Name : </b></td>
+            <td>{{ order.user.account.firstname }} {{ order.user.account.lastname }}</td>
+        </tr>
+        <tr>
+            <td><b>State : </b></td>
+            <td>{{order.user.account.state }}<td>
+        </tr>
+        <tr>
+            <td><b>City : </b></td>
+            <td>{{order.user.account.city }}<td>
+        </tr>
+        <tr>
+            <td><b>Address : </b></td>
+            <td>{{order.user.account.address }}<td>
+        </tr>
+        <tr>
+            <td><b>Email : </b></td>
+            <td>{{order.user.account.email }}<td>
+        </tr>
+        <tr>
+            <td><b>Mobile no. : </b></td>
+            <td>{{order.user.account.mobile }}<td>
+        </tr>
+    {% endif %}
+</table>
+
+<table width="70%" align="center" border="2px">
+    <tr>
+        <th style="text-align: center">Product id</th>
+        <th style="text-align: center">Product Name</th>
+        <th style="text-align: center">Price</th>
+        <th style="text-align: center">Discount</th>
+        <th style="text-align: center">Quantity</th>
+        <th style="text-align: center">Amount</th>
+    </tr>
+    {% for i in products %}
+        <tr>
+            <td style="text-align: center">{{ i.product.id }}</td>
+            <td>{{ i.product.product_name }}</td>
+            <td>&#8377;{{ i.product.product_price }}</td>
+            <td>{{ i.product.product_discount }}%</td>
+            <td>{{ i.quantity }}</td>
+            <td>&#8377;{{ i.line_total }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% if delivery_boy %}
+    {% if accept %}
+        <table style="margin-top: 50px;" width="70%" align="center">
+        <tr>
+            <td><b>Product price : </b></td>
+            <td>&#8377;{{ order.sub_total }}</td>
+        </tr>
+        <tr>
+            <td><b>Delivery Charge : </b></td>
+            <td>&#8377;{{ order.delivery_charge }}</td>
+        </tr>
+        <tr>
+            <td><b>Total : </b></td>
+            <td>&#8377;{{ order.final_total }}</td>
+        </tr>
+        <tr>
+            <td><b>Status : </b></td>
+            {% ifequal order.status 'Started' %}
+                <td style="color: orange">{{ order.status }}</td>
+            {% else %}
+            {% ifequal order.status 'Finished' %}
+                <td style="color: green">{{ order.status }}</td>
+            {% else %}
+            {% ifequal order.status 'Canceled' %}
+                <td style="color: red">{{ order.status }}</td>
+            {% endifequal %}
+            {% endifequal %}
+            {% endifequal %}
+        </tr>
+
+        {% ifequal order.status 'Started' %}
+            <tr>
+                <td><a href="{% url 'finished' order.id %}" class="btn btn-primary">Finished</a></td>
+            </tr>
+        {% endifequal %}
+        </table>
+    {% else %}
+<table style="margin-top: 50px" width="50%" align="center">
+        <tr>
+            <td><b>Product price : </b></td>
+            <td>&#8377;{{ order.sub_total }}</td>
+        </tr>
+        <tr>
+            <td><b>Status : </b></td>
+            <td style="color: red">{{ order.status }}</td>
+        </tr>
+            </table>
+    {% endif %}
+{% else %}
+{% if shopkeeper %}
+{% if accept %}
+<table style="margin-top: 50px" width="70%" align="center">
+    <tr>
+        <td><b>Product price : </b></td>
+        <td>&#8377;{{ order.sub_total }}</td>
+    </tr>
+    <tr>
+        <td><b>Delivery Charge : </b></td>
+        <td>&#8377;{{ order.delivery_charge }}</td>
+    </tr>
+    <tr>
+        <td><b>Total : </b></td>
+        <td>&#8377;{{ order.final_total }}</td>
+    </tr>
+    <tr>
+        <td><b>Status : </b></td>
+        {% ifequal order.status 'Started' %}
+                <td style="color: orange">{{ order.status }}</td>
+            {% else %}
+            {% ifequal order.status 'Finished' %}
+                <td style="color: green">{{ order.status }}</td>
+            {% else %}
+            {% ifequal order.status 'Canceled' %}
+                <td style="color: red">{{ order.status }}</td>
+            {% endifequal %}
+            {% endifequal %}
+            {% endifequal %}
+    </tr>
+    </table>
+{% else %}
+<form method="post" action="{% url 'accepted' order.id %}">
+    {% csrf_token %}
+    <table style="margin-top: 50px" width="70%" align="center">
+    <tr>
+        <td><b>Product price : </b></td>
+        <td>&#8377;{{ order.sub_total }}</td>
+    </tr>
+    <tr>
+        <td><b>Delivery Charge</b></td>
+        <td><input name="delivery" class="form-control" type="number" id="delivery" placeholder="Delivery Charge" required></td>
+    </tr>
+    <tr>
+        <td><b>Delivery Boy</b></td>
+        <td>
+        <select class="form-control" name="deliveryboy" id="deliveryboy" required>
+            <option selected>{{ delivery }}</option>
+            {% for i in deliveries %}
+                <option>{{ i.username }}</option>
+            {% endfor %}
+        </select>
+        </td>
+    </tr>
+    <tr>
+        <td><b>Status : </b></td>
+        <td style="color: red">{{ order.status }}</td>
+    </tr>
+    {% if canceled %}
+
+    {% else %}
+        <tr>
+            <td><button type="submit" class="btn btn-primary">Accept</button>
+            <a href="{% url 'canceled' order.id %}" class="btn btn-primary">Reject</a></td>
+        </tr>
+    {% endif %}
+</table>
+</form>
+{% endif %}
+{% else %}
+{% if accept %}
+    <table style="margin-top: 50px" width="70%" align="center">
+    <tr class="form-group">
+        <td><b>Product price : </b></td>
+        <td>&#8377;{{ order.sub_total }}</td>
+    </tr>
+    <tr>
+        <td><b>Delivery Charge : </b></td>
+        <td >&#8377;{{ order.delivery_charge }}</td>
+    </tr>
+    <tr>
+        <td><b>Total : </b></td>
+        <td>&#8377;{{ order.final_total }}</td>
+    </tr>
+    <tr>
+        <td><b>Status : </b></td>
+        {% ifequal order.status 'Started' %}
+                <td style="color: orange">{{ order.status }}</td>
+            {% else %}
+            {% ifequal order.status 'Finished' %}
+                <td style="color: green">{{ order.status }}</td>
+            {% else %}
+            {% ifequal order.status 'Canceled' %}
+                <td style="color: red">{{ order.status }}</td>
+            {% endifequal %}
+            {% endifequal %}
+            {% endifequal %}
+    </tr>
+
+    {% if canceled %}
+
+    {% else %}
+    {% if finished %}
+    {% else %}
+        <tr>
+            <td><a href="{% url 'canceled' order.id %}" class="btn btn-primary">Canceled</a></td>
+        </tr>
+    {% endif %}
+    {% endif %}
+    </table>
+{% else %}
+<table style="margin-top: 50px" width="70%" align="center">
+    <tr>
+            <td>Product price : </td>
+            <td>&#8377;{{ order.sub_total }}</td>
+    </tr>
+    <tr>
+            <td>Status : </td>
+            <td style="color: red">&#8377;{{ order.status }}</td>
+    </tr>
+
+
+{% if canceled %}
+
+{% else %}
+    <tr>
+        <td><a href="{% url 'canceled' order.id %}" class="btn btn-primary">Canceled</a></td>
+    </tr>
+    {% endif %}
+</table>
+{% endif %}
+{% endif %}
+{% endif %}
+
+{% endif %}
+{% endblock content %}

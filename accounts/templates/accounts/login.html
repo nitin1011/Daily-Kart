@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                        <h4><i class="fas fa-user-plus"></i>Login </h4>
+                                    </div>
+                            <div class="card-body">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-customer-tab" data-toggle="tab" href="#nav-customer" role="tab" aria-controls="nav-home" aria-selected="true">Customer</a>
+                                        <a class="nav-item nav-link" id="nav-shopkeeper-tab" data-toggle="tab" href="#nav-shopkeeper" role="tab" aria-controls="nav-profile" aria-selected="false">Shopkeeper</a>
+                                        <a class="nav-item nav-link" id="nav-delivery-tab" data-toggle="tab" href="#nav-delivery" role="tab" aria-controls="nav-contact" aria-selected="false">Delivery</a>
+                                    </div>
+                                </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-customer" role="tabpanel" aria-labelledby="nav-customer-tab">
+                                            <!--ALERT-->
+                                            {% include '_alerts.html' %}
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                               <div class="form-group" hidden>
+                                                        <input name="category" type="text" class="form-control" value="customer" required>
+                                                    </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputUsername1">Username</label>
+                                            <input name="username" type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter username" required>
+                                          </div>
+
+                                          <div class="form-group">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                                          </div>
+
+                                          <button type="submit" class="btn btn-primary">Login</button>
+                                        </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-shopkeeper" role="tabpanel" aria-labelledby="nav-shopkeeper-tab">
+
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                               <div class="form-group" hidden>
+                                                        <input name="category" type="text" class="form-control" value="shopkeeper" required>
+                                                    </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputUsername2">Shop Name</label>
+                                            <input name="username" type="text" class="form-control" id="exampleInputUsername2" placeholder="Enter username" required>
+                                          </div>
+
+                                          <div class="form-group">
+                                            <label for="exampleInputPassword2">Password</label>
+                                            <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                          </div>
+
+                                          <button type="submit" class="btn btn-primary">Login</button>
+                                        </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-delivery" role="tabpanel" aria-labelledby="nav-delivery-tab">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                               <div class="form-group" hidden>
+                                                        <input name="category" type="text" class="form-control" value="delivery" required>
+                                                    </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputUsername">Username</label>
+                                            <input name="username" type="text" class="form-control" id="exampleInputUsername" placeholder="Enter username" required>
+                                          </div>
+
+                                          <div class="form-group">
+                                            <label for="exampleInputPassword">Password</label>
+                                            <input name="password" type="password" class="form-control" id="exampleInputPassword" placeholder="Password" required>
+                                          </div>
+
+                                          <button type="submit" class="btn btn-primary">Login</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock content %}

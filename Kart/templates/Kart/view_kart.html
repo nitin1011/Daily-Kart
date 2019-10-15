@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="col-sm-8 col-sm-offset-2">
+        {% if empty %}
+
+            <h1 align="center">{{ message }}</h1>
+
+        {% else %}
+
+        <table width="100%">
+
+            {% for i in kart.cartitem_set.all %}
+            <tr>
+                <td rowspan="2"><img src="{{ i.product.product_image.url }}" width="120" height="100"></td>
+                <td><a href="{% url 'product-detail' i.product.id %}">{{ i.product.product_name }}  <span class="badge badge-dark">{{ i.quantity }}</span></a> </td>
+                <td rowspan="2"><a href="{% url 'update-kart' i.product.id %}?qty=0" class="btn btn-primary">Remove</a></td>
+            </tr>
+
+            <tr>
+                <td style="color:green">&#8377;{{ i.product.product_price }}</td>
+            </tr>
+            <tr>
+                <td colspan="3"><HR/></td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td colspan="3" align="right"> Total = &#8377;{{ kart.total }}
+                    <a href="{% url 'checkout' %}" class="btn btn-primary">BUY</a>
+                </td>
+            </tr>
+
+        </table>
+        {% endif %}
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                        <h4><i class="fas fa-user-plus"></i>ADD PRODUCT </h4>
+                                    </div>
+                            <div class="card-body">
+
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="productname">Product Name</label>
+                                        <input name="productname" type="text" class="form-control" id="productname" placeholder="Enter Product Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="productcategory">Product Category</label>
+                                        <input name="productcategory" type="text" class="form-control" id="productcategory" placeholder="Enter Product Category" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="productprice">Product Price</label>
+                                        <input name="productprice" type="number" class="form-control" id="productprice" placeholder="Enter Product Price" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="discount">Product Discount</label>
+                                        <input name="discount" type="number" class="form-control" id="discount" placeholder="Enter Product Discount in form of %" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image">Product Image</label><br>
+                                        <input type="file" name="image" id="image" accept="image/*" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="discription">Product Discription</label>
+                                        <textarea name="discription" class="form-control" id="discription" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+
+
+{% endblock content %}

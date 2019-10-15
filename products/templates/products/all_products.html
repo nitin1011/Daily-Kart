@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for i in products %}
+    <table cellpadding="10px">
+        <tr>
+            <td rowspan="2">
+                <img src="{{ i.product_image.url }}" width="150px" height="100px">
+            </td>
+            <td>
+                <h4><a href="{% url 'product-detail' i.id %}">{{ i.product_name }}</a></h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b style="color:green">&#8377;{{ i.product_price }}</b>
+            </td>
+        </tr>
+    </table>
+
+    <hr />
+{% endfor %}
+<p align="right"><a href="{% url 'product-create' %}" class="btn btn-primary">Add Products</a></p>
+{% endblock content %}

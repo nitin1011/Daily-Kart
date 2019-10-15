@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="col-sm-8 col-sm-offset-2">
+        {% if other %}
+            <h1 align="center">You Can Not Access This Page</h1>
+        {% else %}
+            {% if empty %}
+
+                <h1 align="center">No Order</h1>
+
+            {% else %}
+
+            <table style="margin-left: 50px" width="100%">
+
+                {% for i in orders %}
+                <tr>
+                    <td><a href="{% url 'order-detail' i.id %}">{{ i.datetime }}({{ i.order_id }})</a> </td>
+                </tr>
+                <tr>
+                    <td>Products Price : &#8377;{{ i.sub_total }}</td>
+                    <td align="right">Status : </td>
+                        {% ifequal i.status 'Started' %}
+                            <td style="color: orange">{{ i.status }}</td>
+                        {% else %}
+                        {% ifequal i.status 'Finished' %}
+                            <td style="color: green">{{ i.status }}</td>
+                        {% else %}
+                        {% ifequal i.status 'Canceled' %}
+                            <td style="color: red">{{ i.status }}</td>
+                        {% else %}
+                        {% ifequal i.status 'Notstarted' %}
+                            <td style="color: red">{{ i.status }}</td>
+                        {% endifequal %}
+                        {% endifequal %}
+                        {% endifequal %}
+                        {% endifequal %}
+
+                </tr>
+                <tr>
+                    <td colspan="3"><HR/></td>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+            {% endif %}
+        {% endif %}
+    </div>
+
+{% endblock content %}

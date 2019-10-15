@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table width="70%" align="center" border="2px">
+    <tr>
+        <th style="text-align: center">Product id</th>
+        <th style="text-align: center">Product Name</th>
+        <th style="text-align: center">Price</th>
+        <th style="text-align: center">Discount</th>
+        <th style="text-align: center">Quantity</th>
+        <th style="text-align: center">Amount</th>
+    </tr>
+    {% for i in cart %}
+        <tr>
+            <td style="text-align: center">{{ i.product.id }}</td>
+            <td>{{ i.product.product_name }}</td>
+            <td>&#8377;{{ i.product.product_price }}</td>
+            <td>{{ i.product.product_discount }}%</td>
+            <td>{{ i.quentity }}</td>
+            <td>&#8377;{{ i.line_total }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<table width="20%" align="center">
+    <tr>
+        <td>Cart Total</td>
+        <td>&#8377;{{ cart_total }}</td>
+    </tr>
+    <tr>
+        <td>Delivery Charge</td>
+        <td>&#8377;{{ delivery_charge }}</td>
+    </tr>
+    <tr>
+        <td>Total</td>
+        <td>&#8377;{{ total }}</td>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td>{{ status }}</td>
+    </tr>
+</table>
+
+{% endblock content %}

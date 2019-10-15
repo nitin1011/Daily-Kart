@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                        <h4><i class="fas fa-user-plus"></i>{{ account.username }} </h4>
+                                    </div>
+                            <div class="card-body">
+                                <table align="center" width="100%" style="height:300px">
+                                    <tr>
+                                        <th>First Name</th>
+                                        <td>{{ account.firstname }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last Name</th>
+                                        <td>{{ account.lastname }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email Address</th>
+                                        <td>{{ account.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mobile Number</th>
+                                        <td>{{ account.mobile }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>State</th>
+                                        <td>{{ account.state }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>City</th>
+                                        <td>{{ account.city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Area</th>
+                                        <td>{{ account.area }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{{ account.address }}</td>
+                                    </tr>
+                                    {% if shop %}
+                                    <tr>
+                                        <td colspan="2" align="right">
+                                            <a href="{% url 'product-all' %}" class="btn btn-primary">All Products</a>
+                                        <a href="{% url 'edit-account' %}" class="btn btn-primary">Edit Account</a>
+                                        <a href="{% url 'delete-account' %}" class="btn btn-primary">Delete Account</a></td>
+                                    </tr>
+                                    {% elif delivery %}
+                                        <tr>
+                                            <td colspan="2" align="right">
+                                            <a href="{% url 'edit-account' %}" class="btn btn-primary">Edit Account</a>
+                                            <a href="{% url 'delete-account' %}" class="btn btn-primary">Delete Account</a></td>
+                                        </tr>
+                                    {% else %}
+                                     <tr>
+                                        <td colspan="2" align="right">
+                                        <a href="{% url 'edit-account' %}" class="btn btn-primary">Edit Account</a>
+                                        <a href="{% url 'history' %}" class="btn btn-primary">History</a>
+                                        <a href="{% url 'delete-account' %}" class="btn btn-primary">Delete Account</a></td>
+                                    </tr>
+                                    {% endif %}
+                                </table>
+                                 </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+{%  endblock content %}

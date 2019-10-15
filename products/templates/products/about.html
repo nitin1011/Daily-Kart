@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div style="position: relative; text-align: center; color: #CED3D4; font-size: 8vw">
+    <img style="width: 100%" src="{% static 'aboutimage.png' %}" class="img-fluid">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">ABOUT US</div>
+</div>
+<h1 align="center" style="margin-top: 50px; color: #091B57">MEET THE TEAM</h1>
+
+<div class="container my-auto" style="margin-right: 150px">
+
+<div class="row ml-auto">
+<div class="card ml-auto" style="width: 20rem; margin-top: 50px;">
+  <img src="{% static 'default.jpg' %}" class="card-img-top" height="200px">
+  <div class="card-body">
+      <h3 class="card-title"><b>Nitin Jethwani</b></h3>
+    <b>Founder and CEO of DailyKart</b>
+  </div>
+</div>
+
+<div class="card ml-auto" style="width: 20rem; margin-top: 50px;">
+  <img src="{% static 'default.jpg' %}" class="card-img-top" height="200px">
+  <div class="card-body">
+      <h3 class="card-title"><b>Neeraj Mirchandani</b></h3>
+    <b>Team Leader</b>
+  </div>
+</div>
+
+<div class="card ml-auto" style="width: 20rem; margin-top: 50px;">
+  <img src="{% static 'default.jpg' %}" class="card-img-top" height="200px">
+  <div class="card-body">
+      <h3 class="card-title"><b>Rahul Balwani</b></h3>
+    <b>Team Member</b>
+  </div>
+</div>
+</div>
+</div>
+{% endblock content %}

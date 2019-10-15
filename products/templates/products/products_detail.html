@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block content %}
+<p align="center">{% include '_alerts.html' %}</p>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 mt-4 ml-3">
+            <img src="{{ object.product_image.url }}" id="blah" class="img-fluid" width="300px" height="650px"><br/>
+            {% ifequal user.account.username object.user.username %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mt-4">
+                    <label for="files" id="filelable" class="btn btn-primary">Edit Image</label>
+                    <input type="file" id="files" name="image" style="visibility:hidden" onchange="readURL(this);" accept="image/*">
+                    <button type="submit" id="subm" class="btn btn-primary" style="display:none">Save Image</button>
+                    <script>
+
+                 function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                             $("#subm").css("display", "Block");
+                             $("#filelable").remove();
+                                $('#blah').attr('src', e.target.result);
+                            }
+
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                                    </script>
+
+
+                                </div>
+                            </form>
+                            {% endifequal %}
+
+        </div>
+        <div class="col-md-4 mt-4">
+
+            <h2 class="mt-4 mb-2">{{ object.product_name }}</h2>
+            <h4 class="mt-4">Category : {{ object.product_category }}</h4>
+            <h4>MRP : &#8377;{{ object.product_price }}</h4>
+            <h4>Discount : {{ object.product_discount }}%</h4>
+            <h4>Shop : {{ object.user.username }}</h4>
+            {% ifequal user.account.category 'shopkeeper' %}
+        {% else %}
+        <form class="form pull-right" method="GET" action="{% url 'update-kart' object.id %}">
+            <div class="input-group mb-3">
+            <input name="qty" type="number" class="form-control" placeholder="Number of items" />
+            <div class="input-group-append">
+            <input type="submit" class="btn btn-primary mr-auto" value="Add to cart">
+            </div>
+            </div>
+            <p>(0 = remove item from cart)</p>
+            </form>
+            {% endifequal %}
+        </div>
+        <div class="com-md-2"></div>
+    </div>
+
+
+</div>
+<div class="container mt-4">
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h5 class="ml-3">About : <br>{{ object.product_disc }}</h5>
+            {% if shop %}
+            <div class="container mt-3">
+
+                <div class="row">
+                    <div class="col-md-4">
+                                            <a href="{% url 'edit-product' object.id %}" class="btn btn-primary">Edit Product</a>
+                <a href="{% url 'delete-product' object.id %}" class="btn btn-primary">Delete</a>
+                    </div>
+                    <div class="col-md-8"></div>
+
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!--<table align="center" style="margin-top: 100px; margin-bottom: 100px" width="100%">-->
+    <!--<tr>-->
+        <!--<td rowspan="6" align="center"><img src="{{ object.product_image.url }}" id="blah" class="img-fluid" width="400px" height="800px"><br/>-->
+            <!--{% ifequal user.account.username object.user.username %}-->
+            <!--<form method="POST" enctype="multipart/form-data">-->
+                <!--{% csrf_token %}-->
+                <!--<div>-->
+               <!--<label for="files" id="filelable" class="btn btn-primary">Edit Image</label>-->
+                <!--<input type="file" id="files" name="image" style="visibility:hidden" onchange="readURL(this);" accept="image/*">-->
+                    <!--<button type="submit" id="subm" class="btn btn-primary" style="display:none">Save Image</button>-->
+                    <!--<script>-->
+
+ <!--function readURL(input) {-->
+        <!--if (input.files && input.files[0]) {-->
+            <!--var reader = new FileReader();-->
+
+            <!--reader.onload = function (e) {-->
+             <!--$("#subm").css("display", "Block");-->
+             <!--$("#filelable").remove();-->
+                <!--$('#blah').attr('src', e.target.result);-->
+            <!--}-->
+
+            <!--reader.readAsDataURL(input.files[0]);-->
+        <!--}-->
+    <!--}-->
+                    <!--</script>-->
+
+
+                <!--</div>-->
+            <!--</form>-->
+            <!--{% endifequal %}-->
+        <!--</td>-->
+        <!--<td><h2>{{ object.product_name }}</h2></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td><h4>Category : {{ object.product_category }}</h4></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td><h4>MRP : &#8377;{{ object.product_price }}</h4></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td><h4>Discount : {{ object.product_discount }}%</h4></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td><h4>Shop : {{ object.user.username }}</h4></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--{% ifequal user.account.category 'shopkeeper' %}-->
+        <!--{% else %}-->
+        <!--<td><form class="form pull-right" method="GET" action="{% url 'update-kart' object.id %}">-->
+            <!--<div class="input-group mb-3">-->
+            <!--<input name="qty" type="number" class="form-control" placeholder="Number of items" />-->
+            <!--<div class="input-group-append">-->
+            <!--<input type="submit" class="btn btn-primary mr-auto" value="Add to cart">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>(0 = remove item from cart)</p>-->
+            <!--</form>-->
+
+            <!--</td>-->
+        <!--{% endifequal %}-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td colspan="2"><h5 style="margin-top: 50px; margin-left: 120px">About : <br>{{ object.product_disc }}</h5></td>-->
+    <!--</tr>-->
+    <!--{% if shop %}-->
+    <!--<tr>-->
+        <!--<td colspan="2" align="right"><a href="{% url 'edit-product' object.id %}" class="btn btn-primary">Edit Product</a>-->
+        <!--<a href="{% url 'delete-product' object.id %}" class="btn btn-primary">Delete</a></td>-->
+    <!--</tr>-->
+    <!--{% endif %}-->
+
+<!--</table>-->
+
+<!--<img src="{{ object.product_image.url }}" class="img-fluid" width="400px" height="800px" style="margin: 50px">
+<h1 align="right" style="margin: 50px">{{ object.product_name }}</h1>-->
+
+{% endblock content %}
